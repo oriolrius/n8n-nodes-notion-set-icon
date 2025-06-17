@@ -6,17 +6,17 @@
     "n8n-community-node-package"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/your-username/n8n-nodes-notion-set-icon#readme",
+  "homepage": "https://github.com/oriolrius/n8n-nodes-notion-set-icon#readme",
   "author": {
-    "name": "Your Name",
-    "email": "your.email@example.com"
+    "name": "Oriol Rius",
+    "email": "oriol@joor.net"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/n8n-nodes-notion-set-icon.git"
+    "url": "https://github.com/oriolrius/n8n-nodes-notion-set-icon.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/n8n-nodes-notion-set-icon/issues"
+    "url": "https://github.com/oriolrius/n8n-nodes-notion-set-icon/issues"
   },
   "engines": {
     "node": ">=18.10",
