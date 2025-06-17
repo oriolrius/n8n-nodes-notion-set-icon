@@ -131,4 +131,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Support
 
-If you encounter any issues or have questions, please [open an issue](https://github.com/your-username/n8n-nodes-notion-set-icon/issues) on GitHub.
+If you encounter any issues or have questions, please [open an issue](https://github.com/oriolrius/n8n-nodes-notion-set-icon/issues) on GitHub.
