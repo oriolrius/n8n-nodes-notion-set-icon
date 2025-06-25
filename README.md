@@ -118,8 +118,9 @@ This project includes a local n8n test environment for development and testing:
 
 ## Resources
 
-* [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
-* [Notion API documentation](https://developers.notion.com/)
+- [npm package](https://www.npmjs.com/package/n8n-nodes-notion-set-icon)
+- [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
+- [Notion API documentation](https://developers.notion.com/)
 
 ## Contributing
 

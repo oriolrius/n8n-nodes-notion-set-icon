@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-notion-set-icon",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "n8n node for setting custom icons on Notion pages",
   "keywords": [
     "n8n-community-node-package"
