@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-notion-set-icon",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "n8n node for setting custom icons on Notion pages",
   "keywords": [
     "n8n-community-node-package"
@@ -22,7 +22,7 @@
     "node": ">=18.10",
     "pnpm": ">=9.1"
   },
-  "packageManager": "pnpm@9.1.0",
+  "packageManager": "pnpm@10.12.3",
   "main": "index.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
