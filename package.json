@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-notion-set-icon",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "n8n node for setting custom icons on Notion pages",
   "keywords": [
     "n8n-community-node-package"
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oriolrius/n8n-nodes-notion-set-icon.git"
+    "url": "git+https://github.com/oriolrius/n8n-nodes-notion-set-icon.git"
   },
   "bugs": {
     "url": "https://github.com/oriolrius/n8n-nodes-notion-set-icon/issues"
@@ -55,7 +55,7 @@
     "gulp": "^4.0.2",
     "n8n-workflow": "^1.56.0",
     "prettier": "^3.3.2",
-    "typescript": "^5.5.2"
+    "typescript": "5.5.4"
   },
   "peerDependencies": {
     "n8n-workflow": "*"
