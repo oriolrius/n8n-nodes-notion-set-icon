@@ -1,0 +1,13 @@
+{
+  "name": "n8n-custom-extensions",
+  "version": "1.0.0",
+  "description": "Custom n8n extensions",
+  "n8n": {
+    "nodes": [
+      "node_modules/n8n-nodes-notion-set-icon/dist/nodes/NotionSetIcon/NotionSetIcon.node.js"
+    ],
+    "credentials": [
+      "node_modules/n8n-nodes-notion-set-icon/dist/credentials/NotionSetIconApi.credentials.js"
+    ]
+  }
+}

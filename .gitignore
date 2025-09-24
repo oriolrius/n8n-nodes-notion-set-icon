@@ -5,6 +5,9 @@ node_modules/
 # Build output
 dist/
 
+# cookies.txt
+cookies.txt
+
 # Environment variables
 .env
 .env.local
@@ -99,3 +102,8 @@ temp/
 
 # OS generated files
 Thumbs.db
+
+# Playwright test results
+test-results/
+playwright-report/
+playwright/.cache/

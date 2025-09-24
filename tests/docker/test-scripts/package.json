@@ -1,0 +1,18 @@
+{
+  "name": "n8n-notion-test-runner",
+  "version": "1.0.0",
+  "description": "Test runner for n8n Notion Set Icon node",
+  "scripts": {
+    "test": "node run-tests.js",
+    "test:workflows": "bash test-workflows.sh",
+    "test:api": "node test-api.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "chalk": "^4.1.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  }
+}
