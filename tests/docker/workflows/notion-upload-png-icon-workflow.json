@@ -1,0 +1,83 @@
+{
+  "name": "Notion Upload PNG Icon Test",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "http-request",
+      "name": "Download Test PNG",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "resource": "page",
+        "operation": "setIcon",
+        "pageId": "278c413b-2a68-80e4-bcc3-f1fcee4839ca",
+        "iconSource": "upload",
+        "binaryPropertyName": "data"
+      },
+      "id": "notion-set-icon",
+      "name": "Notion Set Icon",
+      "type": "n8n-nodes-notion-set-icon.notionSetIcon",
+      "typeVersion": 1,
+      "position": [650, 300],
+      "credentials": {
+        "notionSetIconApi": {
+          "id": "notion-test-creds",
+          "name": "Notion Set Icon Test Credentials"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Download Test PNG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Test PNG": {
+      "main": [
+        [
+          {
+            "node": "Notion Set Icon",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateId": "notion-png-upload-test"
+  },
+  "pinData": {},
+  "tags": []
+}
