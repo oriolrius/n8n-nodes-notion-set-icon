@@ -60,7 +60,6 @@
     "format": "prettier nodes credentials --write",
     "lint": "eslint \"nodes/**/*.ts\" \"credentials/**/*.ts\"",
     "lintfix": "eslint \"nodes/**/*.ts\" \"credentials/**/*.ts\" --fix",
-    "preinstall": "npx only-allow pnpm",
     "prepublishOnly": "pnpm build \u0026\u0026 pnpm lint -o .eslintcache",
     "release": "npm version patch \u0026\u0026 git push \u0026\u0026 git push --tags",
     "release:major": "npm version major \u0026\u0026 git push \u0026\u0026 git push --tags",
