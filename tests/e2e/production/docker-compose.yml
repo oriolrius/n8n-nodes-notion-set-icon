@@ -18,6 +18,7 @@ services:
       - N8N_SECURE_COOKIE=false
       - N8N_LOG_LEVEL=info
       - N8N_USER_FOLDER=/home/node/.n8n
+      - N8N_CUSTOM_EXTENSIONS=/home/node/.n8n/nodes
       - NODE_ENV=development
       # Fix deprecation warnings and permissions
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true

@@ -290,6 +290,38 @@ test.describe('n8n Notion Set Icon - Production NPM Package Integration', () => 
       console.log('Could not read package.json:', e.message);
     }
 
+    // Check the actual node module installation
+    try {
+      const nodeModuleCheck = execSync('docker exec n8n-notion-production-test ls -la /home/node/.n8n/nodes/node_modules/n8n-nodes-notion-set-icon/', {
+        encoding: 'utf-8'
+      });
+      console.log('\nNotionSetIcon module contents:', nodeModuleCheck);
+    } catch (e: any) {
+      console.log('Could not list module directory:', e.message);
+    }
+
+    // Check if the node files are present
+    try {
+      const distCheck = execSync('docker exec n8n-notion-production-test ls -la /home/node/.n8n/nodes/node_modules/n8n-nodes-notion-set-icon/dist/nodes/', {
+        encoding: 'utf-8'
+      });
+      console.log('\nDist/nodes directory:', distCheck);
+    } catch (e: any) {
+      console.log('Could not list dist/nodes directory:', e.message);
+    }
+
+    // List all loaded node types in n8n
+    console.log('\nChecking loaded node types...');
+    try {
+      // Use n8n's internal API to check loaded nodes
+      const checkLoadedNodes = execSync(`docker exec n8n-notion-production-test sh -c "echo 'SELECT name FROM workflow_entity LIMIT 1;' | sqlite3 /home/node/.n8n/database/database.sqlite 2>/dev/null || echo 'DB query failed'"`, {
+        encoding: 'utf-8'
+      });
+      console.log('DB check:', checkLoadedNodes);
+    } catch (e: any) {
+      console.log('Could not check loaded nodes:', e.message);
+    }
+
     // Execute workflow by ID with verbose logging
     console.log('Executing workflow WPNuBFi52Nb4w2Ur with verbose logging...');
     try {
