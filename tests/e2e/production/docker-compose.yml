@@ -1,0 +1,41 @@
+# Minimal docker-compose for n8n workflow testing
+
+services:
+  n8n:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: n8n-production-node:latest
+    container_name: n8n-notion-production-test
+    ports:
+      - "15678:5678"
+    environment:
+      # Basic n8n configuration
+      - N8N_BASIC_AUTH_ACTIVE=false
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_SECURE_COOKIE=false
+      - N8N_LOG_LEVEL=info
+      - N8N_USER_FOLDER=/home/node/.n8n
+      - NODE_ENV=development
+      # Fix deprecation warnings and permissions
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - DB_SQLITE_POOL_SIZE=2
+      - N8N_RUNNERS_ENABLED=false
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+      - NODE_FUNCTION_ALLOW_BUILTIN=*
+      - NODE_FUNCTION_ALLOW_EXTERNAL=*
+    volumes:
+      # Persist n8n data
+      - n8n-data:/home/node/.n8n/database
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:5678/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  n8n-data:
+    name: production_n8n-data

@@ -28,7 +28,7 @@ COPY --from=builder /tmp/n8n-nodes-notion-set-icon-*.tgz /tmp/n8n-nodes-notion-s
 
 # Install the packaged node into the community packages directory that n8n scans
 RUN set -eux; \
-	NODES_ROOT="/home/node/.n8n/.n8n/nodes"; \
+	NODES_ROOT="/home/node/.n8n/nodes"; \
 	mkdir -p "$NODES_ROOT"; \
 	if [ ! -f "$NODES_ROOT/package.json" ]; then \
 		printf '{\n  "name": "installed-nodes",\n  "private": true,\n  "dependencies": {}\n}\n' > "$NODES_ROOT/package.json"; \
