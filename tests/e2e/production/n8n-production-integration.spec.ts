@@ -220,7 +220,7 @@ test.describe('n8n Notion Set Icon - Production NPM Package Integration', () => 
 
   // Copy workflow.json, credentials.json, and image asset to container
   console.log('Copying workflow, credentials, and icon image to container...');
-    execSync('docker cp ../../fixtures/workflows/workflow.json n8n-notion-production-test:/tmp/workflow.json', { cwd: __dirname });
+    execSync('docker cp ../../fixtures/workflows/production.json n8n-notion-production-test:/tmp/workflow.json', { cwd: __dirname });
     execSync('docker cp temp-credentials.json n8n-notion-production-test:/tmp/credentials.json', { cwd: __dirname });
   execSync('docker cp ../../fixtures/images/aws-academy-educator.png n8n-notion-production-test:/home/node/aws-academy-educator.png', { cwd: __dirname });
 
@@ -375,6 +375,15 @@ test.describe('n8n Notion Set Icon - Production NPM Package Integration', () => 
         console.log('  - The custom node is not properly loaded');
         console.log('  - There is a configuration issue with the workflow');
         console.log('  - The node package installation failed');
+
+        // Set flag to keep container running for debugging
+        process.env.TEST_FAILED = 'true';
+      } else if (e.stdout && e.stdout.includes('Unrecognized node type')) {
+        console.log('\n❌ CRITICAL: Node type not recognized by n8n!');
+        console.log('The custom node is not being loaded properly.');
+
+        // Set flag to keep container running for debugging
+        process.env.TEST_FAILED = 'true';
       }
     }
 
@@ -393,14 +402,27 @@ test.describe('n8n Notion Set Icon - Production NPM Package Integration', () => 
   });
 
   test.afterAll(async () => {
-    console.log('\n🧹 Cleaning up test environment...');
+    // Check if the test failed by looking for the workflow execution error
+    const testFailed = process.env.TEST_FAILED === 'true';
 
-    try {
-      execSync('docker compose down -v', { cwd: __dirname, stdio: 'inherit' });
-      console.log('✅ Successfully stopped and removed containers and volumes');
-    } catch (e) {
-      console.log('⚠️ Warning: Failed to clean up containers - may need manual cleanup');
-      console.log('To clean up manually, run: docker compose down -v');
+    if (testFailed) {
+      console.log('\n⚠️ TEST FAILED - Keeping container running for debugging');
+      console.log('📦 Container name: n8n-notion-production-test');
+      console.log('🔍 To debug:');
+      console.log('   docker exec -it n8n-notion-production-test /bin/sh');
+      console.log('   docker logs n8n-notion-production-test');
+      console.log('\n🧹 To clean up manually when done:');
+      console.log('   cd tests/e2e/production && docker compose down -v');
+    } else {
+      console.log('\n🧹 Cleaning up test environment...');
+
+      try {
+        execSync('docker compose down -v', { cwd: __dirname, stdio: 'inherit' });
+        console.log('✅ Successfully stopped and removed containers and volumes');
+      } catch (e) {
+        console.log('⚠️ Warning: Failed to clean up containers - may need manual cleanup');
+        console.log('To clean up manually, run: docker compose down -v');
+      }
     }
   });
 });

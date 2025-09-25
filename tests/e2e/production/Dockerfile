@@ -10,6 +10,6 @@ RUN set -eux; \
 		printf '{\n  "name": "installed-nodes",\n  "private": true,\n  "dependencies": {}\n}\n' > "$NODES_ROOT/package.json"; \
 	fi; \
 	cd "$NODES_ROOT"; \
-	npm install --omit=dev --no-audit --no-fund --ignore-scripts n8n-nodes-notion-set-icon@latest
+	npm install n8n-nodes-notion-set-icon@latest
 
 WORKDIR /home/node

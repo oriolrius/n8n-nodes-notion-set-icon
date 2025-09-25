@@ -76,7 +76,7 @@
     "test:docker:validate": "cd tests/e2e/docker \u0026\u0026 make validate",
     "test:headed": "playwright test --headed",
     "test:integration": "npx playwright test tests/e2e/docker/n8n-workflow-integration.spec.ts",
-    "test:production": "npx playwright test tests/e2e/docker/n8n-production-integration.spec.ts",
+    "test:production": "npx playwright test tests/e2e/production/n8n-production-integration.spec.ts",
     "test:n8n": "./start-n8n.sh",
     "test:notion": "playwright test tests/e2e/notion",
     "test:notion:list": "playwright test tests/e2e/notion --list",

@@ -1,0 +1,96 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        -96
+      ],
+      "id": "571a2a7f-70af-4ce4-8979-457a1572ecbd",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "filePath": "/home/node/aws-academy-educator.png"
+      },
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -96
+      ],
+      "id": "47b0c31f-86ab-4e54-9bde-8d9d8d70ba65",
+      "name": "Read icon file"
+    },
+    {
+      "parameters": {
+        "pageId": "27842565192381759b18e3d2e75baa0d",
+        "iconSource": "upload"
+      },
+      "type": "CUSTOM.notionSetIcon",
+      "typeVersion": 1,
+      "position": [
+        144,
+        -96
+      ],
+      "id": "8055cac1-651c-4693-983e-be711a463b5e",
+      "name": "Set icon for a page1",
+      "credentials": {
+        "notionSetIconApi": {
+          "id": "E02dNz9Hn8NxkVYM",
+          "name": "Notion Set Icon account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Read icon file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read icon file": {
+      "main": [
+        [
+          {
+            "node": "Set icon for a page1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare icon binary": {
+      "main": [
+        [
+          {
+            "node": "Set icon for a page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "14c9fbdb-b307-4e4a-8255-490a2090ac6d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "228efc0af282c6c13be2ad865b336295afa07c8fa975d0894cffe4508510e54f"
+  },
+  "id": "WPNuBFi52Nb4w2Ur",
+  "tags": []
+}
