@@ -107,3 +107,7 @@ Thumbs.db
 test-results/
 playwright-report/
 playwright/.cache/
+
+# SENSITIVE - Never commit credentials
+tests/docker/test-assets/credentials.json
+**/credentials.json
