@@ -21,9 +21,12 @@ services:
       - NOTION_TOKEN_V2=${NOTION_TOKEN_V2}
       - SPACE_ID=${SPACE_ID}
       - NOTION_USER_ID=${NOTION_USER_ID}
+      - N8N_RESTRICT_FILE_ACCESS_TO=/test-assets
     volumes:
       # Mount the entire built package as a custom node
       - ./custom-node:/home/node/.n8n/custom
+      # test assets (e.g. images)
+      - ./test-assets:/test-assets:ro
       # Mount examples
       - ../../examples:/home/node/workflows:ro
       # Mount validation scripts
