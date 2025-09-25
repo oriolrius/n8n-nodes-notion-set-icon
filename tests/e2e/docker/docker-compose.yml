@@ -2,7 +2,10 @@
 
 services:
   n8n:
-    image: n8nio/n8n:latest
+    build:
+      context: ../../..
+      dockerfile: tests/e2e/docker/Dockerfile
+    image: n8n-with-notion-node:latest
     container_name: n8n-notion-test
     ports:
       - "15678:5678"
@@ -16,14 +19,7 @@ services:
       - N8N_LOG_LEVEL=info
       - N8N_USER_FOLDER=/home/node/.n8n
       - NODE_ENV=development
-      # Custom node location
-      - N8N_CUSTOM_EXTENSIONS=/home/node/.n8n/custom
     volumes:
-      # Create a minimal package structure with only dist files
-      # Mount dist folder contents
-      - ../../../dist:/home/node/.n8n/custom/node_modules/n8n-nodes-notion-set-icon/dist:ro
-      # Mount package.json
-      - ../../../package.json:/home/node/.n8n/custom/node_modules/n8n-nodes-notion-set-icon/package.json:ro
       # Persist n8n data
       - n8n-data:/home/node/.n8n/database
     healthcheck:
