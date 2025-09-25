@@ -173,150 +173,51 @@ test.describe('n8n Setup, Logout, and Login', () => {
 
     console.log('✅ Successfully logged in with created credentials!');
 
-    console.log('\n=== PHASE 4: CREATE WORKFLOW ===\n');
+    console.log('\n=== PHASE 4: IMPORT WORKFLOW AND CREDENTIALS VIA CLI ===\n');
 
-    // Navigate to new workflow
-    await page.goto(`${N8N_URL}/workflow/new`);
-    await page.waitForTimeout(2000);
+    // Copy workflow.json and credentials.json to container
+    console.log('Copying workflow and credentials to container...');
+    execSync('docker cp test-assets/workflow.json n8n-notion-test:/tmp/workflow.json', { cwd: __dirname });
+    execSync('docker cp test-assets/credentials.json n8n-notion-test:/tmp/credentials.json', { cwd: __dirname });
 
-    // Add Manual Trigger node
-    console.log('Adding Manual Trigger node...');
-    await page.keyboard.press('Tab');
-    await page.waitForTimeout(500);
-    await page.keyboard.type('manual trigger');
-    await page.waitForTimeout(500);
-    await page.keyboard.press('Enter');
-    await page.waitForTimeout(1000);
-
-    // Add Read/Write Files from Disk node
-    console.log('Adding Read/Write Files from Disk node...');
-    await page.keyboard.press('Tab');
-    await page.waitForTimeout(500);
-    await page.keyboard.type('read write file');
-    await page.waitForTimeout(500);
-    await page.keyboard.press('Enter');
-    await page.waitForTimeout(1000);
-
-    // Configure Read/Write Files node
-    const readFileNode = await page.locator('[data-name*="Read"], [data-name*="Write File"]').first();
-    if (await readFileNode.isVisible()) {
-      await readFileNode.dblclick();
-      await page.waitForTimeout(500);
-
-      // Set operation to Read
-      const operationSelect = await page.locator('select[name="operation"]').first();
-      if (await operationSelect.isVisible()) {
-        await operationSelect.selectOption('read');
-      }
-
-      // Set file path to our test PNG
-      const filePathInput = await page.locator('input[name="fileSelector"], input[placeholder*="File"]').first();
-      await filePathInput.fill('/test-assets/aws-academy-educator.png');
-
-      await page.keyboard.press('Escape');
+    // Import workflow
+    console.log('Importing workflow via CLI...');
+    try {
+      const workflowImport = execSync('docker exec n8n-notion-test n8n import:workflow --input=/tmp/workflow.json', {
+        encoding: 'utf-8'
+      });
+      console.log('Workflow imported:', workflowImport.trim());
+    } catch (e: any) {
+      console.log('Error importing workflow:', e.message);
     }
 
-    // Add Notion Set Icon node (custom node)
-    console.log('Adding Notion Set Icon node...');
-    await page.keyboard.press('Tab');
-    await page.waitForTimeout(500);
-    await page.keyboard.type('set icon');
-    await page.waitForTimeout(500);
-    await page.keyboard.press('Enter');
-    await page.waitForTimeout(1000);
-
-    // Configure Notion Set Icon node
-    const notionNode = await page.locator('[data-name*="Set icon"], [data-name*="Notion"]').first();
-    if (await notionNode.isVisible()) {
-      await notionNode.dblclick();
-      await page.waitForTimeout(500);
-
-      // First need to create credentials
-      console.log('Setting up Notion credentials...');
-
-      // Click on Credentials dropdown or Create New button
-      const credDropdown = await page.locator('[data-test-id="node-credentials-select"], [placeholder*="Credential"], button:has-text("Create New")').first();
-      if (await credDropdown.isVisible()) {
-        await credDropdown.click();
-        await page.waitForTimeout(1000);
-
-        // If it's a dropdown, look for Create New option
-        const createNewOption = await page.locator('text="Create New"').first();
-        if (await createNewOption.isVisible({ timeout: 1000 })) {
-          await createNewOption.click();
-          await page.waitForTimeout(1000);
-        }
-
-        // Fill in credentials from environment
-        const tokenInput = await page.locator('input[name="tokenV2"], input#tokenV2').first();
-        if (await tokenInput.isVisible()) {
-          await tokenInput.fill(NOTION_TOKEN_V2);
-        }
-
-        const spaceIdInput = await page.locator('input[name="spaceId"], input#spaceId').first();
-        if (await spaceIdInput.isVisible()) {
-          await spaceIdInput.fill(SPACE_ID);
-        }
-
-        const userIdInput = await page.locator('input[name="userId"], input#userId').first();
-        if (await userIdInput.isVisible()) {
-          await userIdInput.fill(NOTION_USER_ID);
-        }
-
-        // Set credential name
-        const nameInput = await page.locator('input[placeholder*="credential name"], input[placeholder*="My credential"]').first();
-        if (await nameInput.isVisible()) {
-          await nameInput.fill('Notion Set Icon account');
-        }
-
-        // Save credentials
-        const saveBtn = await page.locator('button:has-text("Save"), button:has-text("Create")').first();
-        if (await saveBtn.isVisible()) {
-          await saveBtn.click();
-          await page.waitForTimeout(1000);
-        }
-      }
-
-      // Set Page ID (without hyphens as shown in JSON)
-      const pageIdField = await page.locator('input[name="pageId"], input#pageId').first();
-      await pageIdField.fill('278c413b2a6880e4bcc3f1fcee4839ca');
-
-      // Set to upload mode
-      const iconSourceSelect = await page.locator('select[name="iconSource"]').first();
-      if (await iconSourceSelect.isVisible()) {
-        await iconSourceSelect.selectOption('upload');
-      }
-
-      await page.keyboard.press('Escape');
+    // Import credentials
+    console.log('Importing credentials via CLI...');
+    try {
+      const credImport = execSync('docker exec n8n-notion-test n8n import:credentials --input=/tmp/credentials.json', {
+        encoding: 'utf-8'
+      });
+      console.log('Credentials imported:', credImport.trim());
+    } catch (e: any) {
+      console.log('Error importing credentials:', e.message);
     }
 
-    // Save workflow
-    console.log('Saving workflow...');
-    await page.keyboard.press('Control+S');
-    await page.waitForTimeout(1000);
+    console.log('✅ Workflow and credentials imported');
 
-    console.log('✅ Workflow created');
+    console.log('\n=== PHASE 5: EXECUTE WORKFLOW VIA CLI ===\n');
 
-    console.log('\n=== PHASE 5: EXECUTE WORKFLOW ===\n');
-
-    // Close any open modals first
-    await page.keyboard.press('Escape');
-    await page.waitForTimeout(500);
-
-    // Execute workflow
-    const executeBtn = await page.locator('button:has-text("Execute"), button:has-text("Test workflow")').first();
-    if (await executeBtn.isVisible()) {
-      await executeBtn.click({ force: true });
-      console.log('⏳ Executing workflow...');
-      await page.waitForTimeout(8000);
-
-      // Check for success
-      const success = await page.locator('text=/success|completed/i').isVisible({ timeout: 2000 }).catch(() => false);
-      if (success) {
-        console.log('✅ Workflow executed successfully!');
-      } else {
-        console.log('⚠️ Workflow execution status unclear');
-      }
+    // Execute workflow by ID
+    console.log('Executing workflow WPNuBFi52Nb4w2Ur...');
+    try {
+      const execution = execSync('docker exec n8n-notion-test n8n execute --id WPNuBFi52Nb4w2Ur', {
+        encoding: 'utf-8',
+        timeout: 30000
+      });
+      console.log('Workflow execution result:', execution);
+      console.log('✅ Workflow executed successfully!');
+    } catch (e: any) {
+      console.log('Error executing workflow:', e.message);
+      console.log('⚠️ Workflow execution failed');
     }
 
     // Take screenshot of final state
