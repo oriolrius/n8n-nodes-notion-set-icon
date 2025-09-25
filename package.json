@@ -81,5 +81,5 @@
     "test:notion:list": "playwright test tests/e2e/notion --list",
     "test:ui": "playwright test --ui"
   },
-  "version": "1.1.0"
+  "version": "1.1.1"
 }
