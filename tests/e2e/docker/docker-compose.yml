@@ -1,0 +1,40 @@
+# Minimal docker-compose for n8n workflow testing
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n-notion-test
+    ports:
+      - "15678:5678"
+    environment:
+      # Basic n8n configuration
+      - N8N_BASIC_AUTH_ACTIVE=false
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_SECURE_COOKIE=false
+      - N8N_LOG_LEVEL=info
+      - N8N_USER_FOLDER=/home/node/.n8n
+      - NODE_ENV=development
+      # Custom node location
+      - N8N_CUSTOM_EXTENSIONS=/home/node/.n8n/custom
+    volumes:
+      # Create a minimal package structure with only dist files
+      # Mount dist folder contents
+      - ../../../dist:/home/node/.n8n/custom/node_modules/n8n-nodes-notion-set-icon/dist:ro
+      # Mount package.json
+      - ../../../package.json:/home/node/.n8n/custom/node_modules/n8n-nodes-notion-set-icon/package.json:ro
+      # Mount test assets
+      - ./test-assets:/test-assets:ro
+      # Persist n8n data
+      - n8n-data:/home/node/.n8n/database
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:5678/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  n8n-data:
+    name: docker_n8n-data

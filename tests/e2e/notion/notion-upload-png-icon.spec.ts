@@ -1,12 +1,12 @@
 import { test, expect, type Page } from '@playwright/test';
-import { getNotionCookies } from './utils/cookie-parser';
+import { getNotionCookies } from '../../unit/cookie-parser';
 import * as path from 'path';
 import * as fs from 'fs';
 
-const COOKIES_FILE = path.join(__dirname, '..', 'cookies.txt');
+const COOKIES_FILE = path.join(__dirname, '..', '..', '..', 'cookies.txt');
 const TEST_PAGE_URL = 'https://www.notion.so/oriolrius/test_page-278c413b2a6880e4bcc3f1fcee4839ca';
 const TEST_PAGE_ID = '278c413b-2a68-80e4-bcc3-f1fcee4839ca';
-const PNG_FILE_PATH = path.join(__dirname, 'test-icon.png');
+const PNG_FILE_PATH = path.join(__dirname, '../../fixtures/images/aws-academy-educator.png');
 
 // Hard-coded values from .env
 const SPACE_ID = 'd9f87de8-aa61-4fd1-b34d-a093b6db25cb';

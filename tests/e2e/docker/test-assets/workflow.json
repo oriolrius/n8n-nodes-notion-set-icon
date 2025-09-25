@@ -1,43 +1,35 @@
 {
-  "name": "Notion Set Icon Example",
+  "name": "Notion Set Icon Test Workflow",
   "nodes": [
     {
       "parameters": {},
-      "id": "f6b4c5d7-8e9f-4a1b-2c3d-4e5f6a7b8c9d",
-      "name": "When clicking \"Execute Workflow\"",
+      "name": "Manual Trigger",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [
-        720,
-        460
-      ]
+      "position": [250, 300]
     },
     {
       "parameters": {
+        "pageId": "278c413b-2a68-80e4-bcc3-f1fcee4839ca",
         "resource": "page",
         "operation": "setIcon",
-        "pageId": "214c413b-2a68-800f-9f9a-d234e37d1380",
-        "iconSource": "url",
-        "iconUrl": "https://www.notion.so/icons/star_yellow.svg"
+        "iconSource": "emoji",
+        "emoji": "🚀"
       },
-      "id": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
       "name": "Notion Set Icon",
       "type": "n8n-nodes-notion-set-icon.notionSetIcon",
       "typeVersion": 1,
-      "position": [
-        940,
-        460
-      ],
+      "position": [450, 300],
       "credentials": {
         "notionSetIconApi": {
-          "id": "1",
-          "name": "Notion Set Icon API account"
+          "id": "E02dNz9Hn8NxkVYM",
+          "name": "Notion Set Icon account"
         }
       }
     }
   ],
   "connections": {
-    "When clicking \"Execute Workflow\"": {
+    "Manual Trigger": {
       "main": [
         [
           {
@@ -51,5 +43,5 @@
   },
   "active": false,
   "settings": {},
-  "versionId": "1"
+  "id": "WPNuBFi52Nb4w2Ur"
 }

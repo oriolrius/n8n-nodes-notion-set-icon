@@ -1,9 +1,9 @@
 import { test, expect, type Page, type BrowserContext } from '@playwright/test';
-import { getNotionCookies } from './utils/cookie-parser';
+import { getNotionCookies } from '../../unit/cookie-parser';
 import * as path from 'path';
 import * as fs from 'fs';
 
-const COOKIES_FILE = path.join(__dirname, '..', 'cookies.txt');
+const COOKIES_FILE = path.join(__dirname, '..', '..', '..', 'cookies.txt');
 const NOTION_URL = 'https://www.notion.so';
 const TEST_PAGE_URL = 'https://www.notion.so/oriolrius/test_page-278c413b2a6880e4bcc3f1fcee4839ca';
 const TEST_PAGE_TITLE = 'test_page';
