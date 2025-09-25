@@ -199,14 +199,14 @@ test.describe('n8n Notion Set Icon - Complete Workflow Integration', () => {
       isManaged: false
     }];
 
-    const credentialsPath = path.join(__dirname, 'test-assets', 'temp-credentials.json');
+    const credentialsPath = path.join(__dirname, 'temp-credentials.json');
     fs.writeFileSync(credentialsPath, JSON.stringify(credentialsData, null, 2));
     console.log('✅ Created temporary credentials file');
 
     // Copy workflow.json and credentials.json to container
     console.log('Copying workflow and credentials to container...');
-    execSync('docker cp test-assets/workflow.json n8n-notion-test:/tmp/workflow.json', { cwd: __dirname });
-    execSync('docker cp test-assets/temp-credentials.json n8n-notion-test:/tmp/credentials.json', { cwd: __dirname });
+    execSync('docker cp ../../fixtures/workflows/workflow.json n8n-notion-test:/tmp/workflow.json', { cwd: __dirname });
+    execSync('docker cp temp-credentials.json n8n-notion-test:/tmp/credentials.json', { cwd: __dirname });
 
     // Clean up temporary credentials file
     fs.unlinkSync(credentialsPath);
@@ -271,14 +271,9 @@ test.describe('n8n Notion Set Icon - Complete Workflow Integration', () => {
   });
 
   test.afterAll(async () => {
-    console.log('\n🧹 Cleaning up after test...');
-
-    // Stop containers and remove volumes
-    try {
-      execSync('docker compose down -v', { cwd: __dirname, stdio: 'inherit' });
-      console.log('✅ Containers and volumes cleaned up');
-    } catch (e) {
-      console.log('Error during cleanup:', e);
-    }
+    console.log('\n🔧 Skipping cleanup - container left running for manual inspection');
+    console.log('Container: n8n-notion-test');
+    console.log('URL: http://localhost:15678');
+    console.log('To clean up manually, run: docker compose down -v');
   });
 });

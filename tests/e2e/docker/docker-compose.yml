@@ -24,8 +24,6 @@ services:
       - ../../../dist:/home/node/.n8n/custom/node_modules/n8n-nodes-notion-set-icon/dist:ro
       # Mount package.json
       - ../../../package.json:/home/node/.n8n/custom/node_modules/n8n-nodes-notion-set-icon/package.json:ro
-      # Mount test assets
-      - ./test-assets:/test-assets:ro
       # Persist n8n data
       - n8n-data:/home/node/.n8n/database
     healthcheck:

@@ -1,1 +1,111 @@
-[{"createdAt":"2025-09-25T04:08:15.944Z","updatedAt":"2025-09-25T04:08:15.944Z","id":"WPNuBFi52Nb4w2Ur","name":"My workflow","active":false,"isArchived":false,"nodes":[{"parameters":{},"type":"n8n-nodes-base.manualTrigger","typeVersion":1,"position":[-288,-96],"id":"571a2a7f-70af-4ce4-8979-457a1572ecbd","name":"When clicking ‘Execute workflow’"},{"parameters":{"fileSelector":"/test-assets/aws-academy-educator.png","options":{}},"type":"n8n-nodes-base.readWriteFile","typeVersion":1,"position":[-64,-96],"id":"4b01a016-1672-4a9f-aff7-764ceca205b8","name":"Read/Write Files from Disk"},{"parameters":{"pageId":"278c413b2a6880e4bcc3f1fcee4839ca","iconSource":"upload"},"type":"CUSTOM.notionSetIcon","typeVersion":1,"position":[144,-96],"id":"94d6f4a0-3f41-45e8-bf3c-5bd9a304a5f6","name":"Set icon for a page","credentials":{"notionSetIconApi":{"id":"E02dNz9Hn8NxkVYM","name":"Notion Set Icon account"}}}],"connections":{"When clicking ‘Execute workflow’":{"main":[[{"node":"Read/Write Files from Disk","type":"main","index":0}]]},"Read/Write Files from Disk":{"main":[[{"node":"Set icon for a page","type":"main","index":0}]]}},"settings":{"executionOrder":"v1"},"staticData":null,"meta":{"templateCredsSetupCompleted":true,"instanceId":"a7bf9788823eff9a74b79f483f3a3646908d5ceb0b21887ce03e63a9934f7097"},"pinData":{},"versionId":"e8c06da9-cf4a-46c7-b6e3-f727680da0c7","triggerCount":0,"tags":[],"shared":[{"createdAt":"2025-09-25T04:08:15.947Z","updatedAt":"2025-09-25T04:08:15.947Z","role":"workflow:owner","workflowId":"WPNuBFi52Nb4w2Ur","projectId":"VcKLHBCEW5AvUbT5","project":{"createdAt":"2025-09-25T04:02:19.463Z","updatedAt":"2025-09-25T04:02:54.342Z","id":"VcKLHBCEW5AvUbT5","name":"Oriol Rius <test@n8n-notion.local>","type":"personal","icon":null,"description":null}}]}]
+[
+  {
+    "createdAt": "2025-09-25T04:08:15.944Z",
+    "updatedAt": "2025-09-25T04:08:15.944Z",
+    "id": "WPNuBFi52Nb4w2Ur",
+    "name": "My workflow",
+    "active": false,
+    "isArchived": false,
+    "nodes": [
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          -288,
+          -96
+        ],
+        "id": "571a2a7f-70af-4ce4-8979-457a1572ecbd",
+        "name": "When clicking ‘Execute workflow’"
+      },
+      {
+        "parameters": {
+          "fileSelector": "/test-assets/aws-academy-educator.png",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.readWriteFile",
+        "typeVersion": 1,
+        "position": [
+          -64,
+          -96
+        ],
+        "id": "4b01a016-1672-4a9f-aff7-764ceca205b8",
+        "name": "Read/Write Files from Disk"
+      },
+      {
+        "parameters": {
+          "pageId": "278c413b2a6880e4bcc3f1fcee4839ca",
+          "iconSource": "upload"
+        },
+        "type": "n8n-nodes-notion-set-icon.notionSetIcon",
+        "typeVersion": 1,
+        "position": [
+          144,
+          -96
+        ],
+        "id": "94d6f4a0-3f41-45e8-bf3c-5bd9a304a5f6",
+        "name": "Set icon for a page",
+        "credentials": {
+          "notionSetIconApi": {
+            "id": "E02dNz9Hn8NxkVYM",
+            "name": "Notion Set Icon account"
+          }
+        }
+      }
+    ],
+    "connections": {
+      "When clicking ‘Execute workflow’": {
+        "main": [
+          [
+            {
+              "node": "Read/Write Files from Disk",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Read/Write Files from Disk": {
+        "main": [
+          [
+            {
+              "node": "Set icon for a page",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "staticData": null,
+    "meta": {
+      "templateCredsSetupCompleted": true,
+      "instanceId": "a7bf9788823eff9a74b79f483f3a3646908d5ceb0b21887ce03e63a9934f7097"
+    },
+    "pinData": {},
+    "versionId": "e8c06da9-cf4a-46c7-b6e3-f727680da0c7",
+    "triggerCount": 0,
+    "tags": [],
+    "shared": [
+      {
+        "createdAt": "2025-09-25T04:08:15.947Z",
+        "updatedAt": "2025-09-25T04:08:15.947Z",
+        "role": "workflow:owner",
+        "workflowId": "WPNuBFi52Nb4w2Ur",
+        "projectId": "VcKLHBCEW5AvUbT5",
+        "project": {
+          "createdAt": "2025-09-25T04:02:19.463Z",
+          "updatedAt": "2025-09-25T04:02:54.342Z",
+          "id": "VcKLHBCEW5AvUbT5",
+          "name": "Oriol Rius <test@n8n-notion.local>",
+          "type": "personal",
+          "icon": null,
+          "description": null
+        }
+      }
+    ]
+  }
+]
