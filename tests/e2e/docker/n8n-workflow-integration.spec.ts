@@ -56,6 +56,18 @@ test.describe('n8n Notion Set Icon - Complete Workflow Integration', () => {
 
     if (ready) {
       console.log('✅ n8n is ready!');
+      
+      // Reset user management to ensure clean state
+      console.log('🔄 Resetting user management...');
+      try {
+        execSync('docker exec n8n-notion-test n8n user-management:reset', { 
+          cwd: __dirname, 
+          stdio: 'inherit' 
+        });
+        console.log('✅ User management reset successfully');
+      } catch (e) {
+        console.log('⚠️ Warning: User management reset failed - may already be in clean state');
+      }
     } else {
       throw new Error('n8n failed to start');
     }
@@ -67,14 +79,17 @@ test.describe('n8n Notion Set Icon - Complete Workflow Integration', () => {
 
     // Go to n8n - should redirect to setup
     await page.goto(N8N_URL);
-    await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('networkidle');
 
-    const setupUrl = page.url();
-    console.log('URL after navigation:', setupUrl);
+  // Ensure the setup form is rendered before proceeding
+  await page.waitForSelector('button:has-text("Next")', { timeout: 15000 });
 
-    // Should be on setup page
-    expect(setupUrl).toContain('/setup');
-    console.log('✅ On setup page');
+  const setupUrl = page.url();
+  console.log('URL after navigation:', setupUrl);
+
+  // Some n8n versions keep the setup UI on the root path, others on /setup
+  expect(setupUrl === `${N8N_URL}/` || setupUrl.includes('/setup')).toBeTruthy();
+  console.log('✅ Setup UI visible');
 
     // Fill setup form - 4 fields and checkbox
     console.log('Filling setup form...');
@@ -203,14 +218,15 @@ test.describe('n8n Notion Set Icon - Complete Workflow Integration', () => {
     fs.writeFileSync(credentialsPath, JSON.stringify(credentialsData, null, 2));
     console.log('✅ Created temporary credentials file');
 
-    // Copy workflow.json and credentials.json to container
-    console.log('Copying workflow and credentials to container...');
+  // Copy workflow.json, credentials.json, and image asset to container
+  console.log('Copying workflow, credentials, and icon image to container...');
     execSync('docker cp ../../fixtures/workflows/workflow.json n8n-notion-test:/tmp/workflow.json', { cwd: __dirname });
     execSync('docker cp temp-credentials.json n8n-notion-test:/tmp/credentials.json', { cwd: __dirname });
+  execSync('docker cp ../../fixtures/images/aws-academy-educator.png n8n-notion-test:/home/node/aws-academy-educator.png', { cwd: __dirname });
 
     // Clean up temporary credentials file
     fs.unlinkSync(credentialsPath);
-    console.log('✅ Cleaned up temporary credentials file');
+  console.log('✅ Cleaned up temporary credentials file and copied assets');
 
     // Import workflow
     console.log('Importing workflow via CLI...');

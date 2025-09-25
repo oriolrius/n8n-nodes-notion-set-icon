@@ -20,27 +20,27 @@
       },
       {
         "parameters": {
-          "fileSelector": "/test-assets/aws-academy-educator.png",
-          "options": {}
+          "filePath": "/home/node/aws-academy-educator.png"
         },
-        "type": "n8n-nodes-base.readWriteFile",
+        "type": "n8n-nodes-base.readBinaryFile",
         "typeVersion": 1,
         "position": [
-          -64,
+          -80,
           -96
         ],
-        "id": "4b01a016-1672-4a9f-aff7-764ceca205b8",
-        "name": "Read/Write Files from Disk"
+        "id": "47b0c31f-86ab-4e54-9bde-8d9d8d70ba65",
+        "name": "Read icon file"
       },
       {
         "parameters": {
           "pageId": "278c413b2a6880e4bcc3f1fcee4839ca",
-          "iconSource": "upload"
+          "iconSource": "upload",
+          "binaryPropertyName": "data"
         },
         "type": "n8n-nodes-notion-set-icon.notionSetIcon",
         "typeVersion": 1,
         "position": [
-          144,
+          192,
           -96
         ],
         "id": "94d6f4a0-3f41-45e8-bf3c-5bd9a304a5f6",
@@ -58,14 +58,25 @@
         "main": [
           [
             {
-              "node": "Read/Write Files from Disk",
+              "node": "Read icon file",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "Read/Write Files from Disk": {
+      "Read icon file": {
+        "main": [
+          [
+            {
+              "node": "Set icon for a page",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Prepare icon binary": {
         "main": [
           [
             {

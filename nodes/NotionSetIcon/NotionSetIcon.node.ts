@@ -4,6 +4,7 @@ import {
 	INodeType,
 	INodeTypeDescription,
 	NodeOperationError,
+	NodeConnectionType,
 } from 'n8n-workflow';
 
 import FormData from 'form-data';
@@ -20,8 +21,8 @@ export class NotionSetIcon implements INodeType {
 		defaults: {
 			name: 'Notion Set Icon',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+	inputs: ['main'] as Array<NodeConnectionType>,
+	outputs: ['main'] as Array<NodeConnectionType>,
 		credentials: [
 			{
 				name: 'notionSetIconApi',

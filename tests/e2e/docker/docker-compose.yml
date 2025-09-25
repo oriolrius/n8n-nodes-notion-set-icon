@@ -19,6 +19,13 @@ services:
       - N8N_LOG_LEVEL=info
       - N8N_USER_FOLDER=/home/node/.n8n
       - NODE_ENV=development
+      # Fix deprecation warnings and permissions
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - DB_SQLITE_POOL_SIZE=2
+      - N8N_RUNNERS_ENABLED=false
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+      - NODE_FUNCTION_ALLOW_BUILTIN=*
+      - NODE_FUNCTION_ALLOW_EXTERNAL=*
     volumes:
       # Persist n8n data
       - n8n-data:/home/node/.n8n/database
@@ -27,7 +34,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 30s
+      start_period: 10s
 
 volumes:
   n8n-data:
