@@ -175,10 +175,34 @@ test.describe('n8n Setup, Logout, and Login', () => {
 
     console.log('\n=== PHASE 4: IMPORT WORKFLOW AND CREDENTIALS VIA CLI ===\n');
 
+    // Create credentials.json from .env file
+    console.log('Creating credentials.json from .env file...');
+    const credentialsData = [{
+      createdAt: "2025-09-25T04:09:31.278Z",
+      updatedAt: "2025-09-25T04:09:31.276Z",
+      id: "E02dNz9Hn8NxkVYM",
+      name: "Notion Set Icon account",
+      data: {
+        tokenV2: NOTION_TOKEN_V2,
+        spaceId: SPACE_ID,
+        userId: NOTION_USER_ID
+      },
+      type: "notionSetIconApi",
+      isManaged: false
+    }];
+
+    const credentialsPath = path.join(__dirname, 'test-assets', 'temp-credentials.json');
+    fs.writeFileSync(credentialsPath, JSON.stringify(credentialsData, null, 2));
+    console.log('✅ Created temporary credentials file');
+
     // Copy workflow.json and credentials.json to container
     console.log('Copying workflow and credentials to container...');
     execSync('docker cp test-assets/workflow.json n8n-notion-test:/tmp/workflow.json', { cwd: __dirname });
-    execSync('docker cp test-assets/credentials.json n8n-notion-test:/tmp/credentials.json', { cwd: __dirname });
+    execSync('docker cp test-assets/temp-credentials.json n8n-notion-test:/tmp/credentials.json', { cwd: __dirname });
+
+    // Clean up temporary credentials file
+    fs.unlinkSync(credentialsPath);
+    console.log('✅ Cleaned up temporary credentials file');
 
     // Import workflow
     console.log('Importing workflow via CLI...');
