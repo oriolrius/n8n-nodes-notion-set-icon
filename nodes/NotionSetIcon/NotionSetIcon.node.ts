@@ -168,9 +168,10 @@ export class NotionSetIcon implements INodeType {
 						// Upload file and get URL
 						const binaryPropertyName = this.getNodeParameter('binaryPropertyName', i) as string;
 						const binaryData = this.helpers.assertBinaryData(i, binaryPropertyName);
-						
-						// Convert base64 string to Buffer
-						const fileBuffer = Buffer.from(binaryData.data, 'base64');
+
+						// Use getBinaryDataBuffer for compatibility with N8N_DEFAULT_BINARY_DATA_MODE=filesystem
+						// See docs/binary-mode-compatibility.md for details
+						const fileBuffer = await this.helpers.getBinaryDataBuffer(i, binaryPropertyName);
 						
 						iconUrl = await uploadImageFile(
 							this,
