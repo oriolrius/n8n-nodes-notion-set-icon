@@ -24,8 +24,8 @@
     "typescript": "5.5.4"
   },
   "engines": {
-    "node": ">=18.10",
-    "pnpm": ">=9.1"
+    "node": "\u003e=18.10",
+    "pnpm": "\u003e=9.1"
   },
   "files": [
     "dist"
@@ -55,12 +55,12 @@
     "url": "git+https://github.com/oriolrius/n8n-nodes-notion-set-icon.git"
   },
   "scripts": {
-    "build": "tsc && gulp build:icons",
+    "build": "tsc \u0026\u0026 gulp build:icons",
     "dev": "tsc --watch",
     "format": "prettier nodes credentials --write",
     "lint": "eslint \"nodes/**/*.ts\" \"credentials/**/*.ts\"",
     "lintfix": "eslint \"nodes/**/*.ts\" \"credentials/**/*.ts\" --fix",
-    "prepublishOnly": "pnpm build && pnpm lint -o .eslintcache",
+    "prepublishOnly": "pnpm build \u0026\u0026 pnpm lint -o .eslintcache",
     "release": "scripts/bumpr patch",
     "release:major": "scripts/bumpr major",
     "release:minor": "scripts/bumpr minor",
@@ -68,19 +68,19 @@
     "start": "./start-n8n.sh",
     "test": "playwright test",
     "test:debug": "playwright test --debug",
-    "test:docker": "cd tests/e2e/docker && make test",
-    "test:docker:clean": "cd tests/e2e/docker && make clean",
-    "test:docker:n8n-setup": "cd tests/e2e/docker && make setup-n8n",
-    "test:docker:setup": "cd tests/e2e/docker && make setup",
-    "test:docker:ui": "cd tests/e2e/docker && make test-ui",
-    "test:docker:validate": "cd tests/e2e/docker && make validate",
+    "test:docker": "cd tests/e2e/docker \u0026\u0026 make test",
+    "test:docker:clean": "cd tests/e2e/docker \u0026\u0026 make clean",
+    "test:docker:n8n-setup": "cd tests/e2e/docker \u0026\u0026 make setup-n8n",
+    "test:docker:setup": "cd tests/e2e/docker \u0026\u0026 make setup",
+    "test:docker:ui": "cd tests/e2e/docker \u0026\u0026 make test-ui",
+    "test:docker:validate": "cd tests/e2e/docker \u0026\u0026 make validate",
     "test:headed": "playwright test --headed",
     "test:integration": "npx playwright test tests/e2e/docker/n8n-workflow-integration.spec.ts",
-    "test:production": "npx playwright test tests/e2e/production/n8n-production-integration.spec.ts",
     "test:n8n": "./start-n8n.sh",
     "test:notion": "playwright test tests/e2e/notion",
     "test:notion:list": "playwright test tests/e2e/notion --list",
+    "test:production": "npx playwright test tests/e2e/production/n8n-production-integration.spec.ts",
     "test:ui": "playwright test --ui"
   },
-  "version": "1.2.0"
+  "version": "1.3.0"
 }
